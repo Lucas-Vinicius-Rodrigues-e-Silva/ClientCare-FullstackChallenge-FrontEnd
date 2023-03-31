@@ -65,8 +65,8 @@ export interface IAuthContext {
   setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
   clients: IClients[] | null;
   setClients: React.Dispatch<React.SetStateAction<IClients[] | null>>;
-  contacts: IContacts | null;
-  setContacts: React.Dispatch<React.SetStateAction<IContacts | null>>;
+  contacts: IContacts[] | null;
+  setContacts: React.Dispatch<React.SetStateAction<IContacts[] | null>>;
   navigate: NavigateFunction;
   handleLogin: (data: ILoginUser) => void;
   handleRegister: (data: IRegisterUser) => void;

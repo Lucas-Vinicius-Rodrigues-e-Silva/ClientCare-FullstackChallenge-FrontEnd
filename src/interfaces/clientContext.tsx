@@ -10,6 +10,13 @@ export interface INewClient {
   phoneNumber: string;
 }
 
+export interface IListClients {
+  id: string;
+  name: string;
+  email: string;
+  phoneNumber: string;
+}
+
 export interface IUpdateClient {
   name?: string;
   email?: string;
@@ -22,11 +29,15 @@ export interface IClientContext {
   clientName: string;
   setClientName: React.Dispatch<React.SetStateAction<string>>;
   clientPhoneNumber: string;
+  clientEmail: string;
+  setClientEmail: React.Dispatch<React.SetStateAction<string>>;
   setClientPhoneNumber: React.Dispatch<React.SetStateAction<string>>;
-  isContactsModalActive: boolean;
-  setIsContactModalActive: React.Dispatch<React.SetStateAction<boolean>>;
   isClientModalActive: boolean;
   setIsClientModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+  isClientUpdateModalActive: boolean;
+  setIsClientUpdateModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+  isClientDeleteModalActive: boolean;
+  setIsClientDeleteModalActive: React.Dispatch<React.SetStateAction<boolean>>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   loadingUpdateClient: boolean;

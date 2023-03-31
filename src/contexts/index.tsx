@@ -1,11 +1,14 @@
 import { IAuthProviderProps } from "../interfaces/authContext";
 import { AuthProvider } from "./AuthContext";
 import { ClientsProvider } from "./ClientContext";
+import { ContactProvider } from "./ContactsContext";
 
 export const Providers = ({ children }: IAuthProviderProps) => {
   return (
-    <ClientsProvider>
-      <AuthProvider>{children}</AuthProvider>
-    </ClientsProvider>
+    <AuthProvider>
+      <ClientsProvider>
+        <ContactProvider>{children}</ContactProvider>
+      </ClientsProvider>
+    </AuthProvider>
   );
 };

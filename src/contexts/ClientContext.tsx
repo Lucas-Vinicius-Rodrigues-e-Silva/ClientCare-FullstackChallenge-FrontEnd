@@ -1,4 +1,6 @@
 import { createContext, useContext, useState } from "react";
+import { errorToast } from "../components/ErrorToast";
+import { sucessToast } from "../components/SucessToast";
 import {
   IClientContext,
   IClientsProviderProps,
@@ -15,9 +17,13 @@ export const ClientsProvider = ({ children }: IClientsProviderProps) => {
     useContext(AuthContext);
   const [clientId, setClientId] = useState("");
   const [clientName, setClientName] = useState("");
+  const [clientEmail, setClientEmail] = useState("");
   const [clientPhoneNumber, setClientPhoneNumber] = useState("");
-  const [isContactsModalActive, setIsContactModalActive] = useState(false);
   const [isClientModalActive, setIsClientModalActive] = useState(false);
+  const [isClientUpdateModalActive, setIsClientUpdateModalActive] =
+    useState(false);
+  const [isClientDeleteModalActive, setIsClientDeleteModalActive] =
+    useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingUpdateClient, setLoadingUpdateClient] = useState(false);
   const [loadingDeleteClient, setLoadingDeleteClient] = useState(false);
@@ -27,6 +33,7 @@ export const ClientsProvider = ({ children }: IClientsProviderProps) => {
     localStorage.removeItem("ClientCareToken");
     localStorage.removeItem("ClientCareId");
     navigate("/login");
+    sucessToast("Logout realizado com sucesso!");
   };
   if (userLoading) {
     return null;
@@ -37,8 +44,12 @@ export const ClientsProvider = ({ children }: IClientsProviderProps) => {
       setLoading(true);
       const newClient = await api.post("/clients", data);
       setClients([newClient.data, ...clients!]);
+      sucessToast("Cliente criado com sucesso!");
     } catch (error) {
       console.log(error);
+      errorToast(
+        "Não foi possível criar o cliente. Tente novamente mais tarde"
+      );
     } finally {
       setLoading(false);
       setIsClientModalActive(false);
@@ -49,18 +60,19 @@ export const ClientsProvider = ({ children }: IClientsProviderProps) => {
     try {
       setLoadingUpdateClient(true);
       const updateClients = await api.patch(`/clients/${clientId}`, data);
-      // const deleteOldClientIndex = clients?.findIndex(
-      //   (client) => client.id === clientId
-      // );
       const clientToUpdate = clients?.filter(
-        (client) => client.id === clientId
+        (client) => client.id !== clientId
       );
       setClients([updateClients.data, ...clientToUpdate!]);
+      sucessToast("Cliente atualizado com sucesso!");
     } catch (error) {
       console.log(error);
+      errorToast(
+        "Não foi possível atualizar o cliente. Tente novamente mais tarde"
+      );
     } finally {
       setLoadingUpdateClient(false);
-      setIsClientModalActive(false);
+      setIsClientUpdateModalActive(false);
     }
   };
 
@@ -72,11 +84,15 @@ export const ClientsProvider = ({ children }: IClientsProviderProps) => {
         (client) => client.id !== clientId
       );
       setClients([...clientToDelete!]);
+      sucessToast("Cliente deletado com sucesso!");
     } catch (error) {
       console.log(error);
+      errorToast(
+        "Não foi possível deletar o cliente. Tente novamente mais tarde"
+      );
     } finally {
       setLoadingDeleteClient(false);
-      setIsClientModalActive(false);
+      setIsClientDeleteModalActive(false);
     }
   };
 
@@ -87,10 +103,14 @@ export const ClientsProvider = ({ children }: IClientsProviderProps) => {
         setClientId,
         clientName,
         setClientName,
+        clientEmail,
+        setClientEmail,
         clientPhoneNumber,
         setClientPhoneNumber,
-        isContactsModalActive,
-        setIsContactModalActive,
+        isClientUpdateModalActive,
+        setIsClientUpdateModalActive,
+        isClientDeleteModalActive,
+        setIsClientDeleteModalActive,
         isClientModalActive,
         setIsClientModalActive,
         loading,
