@@ -19,11 +19,20 @@ import Menu from "@mui/material/Menu";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { StyledListClients } from "./style";
+import { UserContext } from "../../contexts/UserContext";
+import { UpdateUserModal } from "../../components/UpdateUserModal";
+import { DeleteUserModal } from "../../components/DeleteUserModal";
 
 const Dashboard = () => {
   const { exit, isClientModalActive, setIsClientModalActive } =
     useContext(ClientsContext);
   const { user, clients } = useContext(AuthContext);
+  const {
+    isUpdateUserModalActive,
+    setIsUpdateUserModalActive,
+    isDeleteUserModalActive,
+    setIsDeleteUserModalActive,
+  } = useContext(UserContext);
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -38,6 +47,16 @@ const Dashboard = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleCloseUpdate = () => {
+    setAnchorEl(null);
+    return setIsUpdateUserModalActive(!isUpdateUserModalActive);
+  };
+
+  const handleCloseDelete = () => {
+    setAnchorEl(null);
+    return setIsDeleteUserModalActive(!isDeleteUserModalActive);
   };
   return (
     <>
@@ -88,8 +107,14 @@ const Dashboard = () => {
                       open={Boolean(anchorEl)}
                       onClose={handleClose}
                     >
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                      <MenuItem onClick={handleClose}>Upate info</MenuItem>
+                      <MenuItem onClick={handleCloseDelete}>
+                        Delete user
+                        {isDeleteUserModalActive && <DeleteUserModal />}
+                      </MenuItem>
+                      <MenuItem onClick={handleCloseUpdate}>
+                        Update user
+                        {isUpdateUserModalActive && <UpdateUserModal />}
+                      </MenuItem>
                     </Menu>
                   </Box>
                 )}

@@ -70,7 +70,7 @@ export const ContactProvider = ({ children }: IContactsProviderProps) => {
   const handleDeleteContacts = async () => {
     try {
       setLoadingDeleteContact(true);
-      const deleteContact = api.delete(`contacts/${contactId}`);
+      const deleteContact = await api.delete(`contacts/${contactId}`);
       const contactToDelete = contacts?.filter(
         (contact) => contact.id !== contactId
       );

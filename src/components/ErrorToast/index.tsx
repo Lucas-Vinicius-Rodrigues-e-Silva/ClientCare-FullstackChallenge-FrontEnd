@@ -2,14 +2,14 @@ import { toast } from "react-hot-toast";
 export function errorToast(message: string) {
   toast.error(message, {
     style: {
-      border: "1px solid var(--color-error)",
+      border: "1px solid #E83F5B",
       padding: "16px",
-      color: "var(--color-error)",
-      background: "var(--color-grey-2)",
+      color: "#E83F5B",
+      background: "#F8F9FA",
     },
     iconTheme: {
-      primary: "var(--color-error)",
-      secondary: "var(--color-grey-2)",
+      primary: "#E83F5B",
+      secondary: "#F8F9FA",
     },
   });
 }

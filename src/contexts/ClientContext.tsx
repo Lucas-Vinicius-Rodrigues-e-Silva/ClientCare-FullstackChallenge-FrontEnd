@@ -59,6 +59,7 @@ export const ClientsProvider = ({ children }: IClientsProviderProps) => {
   const handleUpdateClients = async (data: IUpdateClient) => {
     try {
       setLoadingUpdateClient(true);
+      console.log(data);
       const updateClients = await api.patch(`/clients/${clientId}`, data);
       const clientToUpdate = clients?.filter(
         (client) => client.id !== clientId

@@ -2,14 +2,14 @@ import { toast } from "react-hot-toast";
 export function sucessToast(message: string) {
   toast.success(message, {
     style: {
-      border: "1px solid var(--color-sucess)",
+      border: "1px solid #91a7ff",
       padding: "16px",
-      color: "var(--color-sucess)",
-      background: "var(--color-grey-2)",
+      color: "#91a7ff",
+      background: "#F8F9FA",
     },
     iconTheme: {
-      primary: "var(--color-sucess)",
-      secondary: "var(--color-grey-2)",
+      primary: "#91a7ff",
+      secondary: "#F8F9FA",
     },
   });
 }

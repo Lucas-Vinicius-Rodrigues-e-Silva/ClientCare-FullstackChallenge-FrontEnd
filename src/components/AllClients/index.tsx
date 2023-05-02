@@ -166,41 +166,27 @@ export const AllClients = ({ id, name, email, phoneNumber }: IListClients) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          {contacts?.length === 0 ? (
-            <>
-              <Stack direction="row" spacing={2}>
-                <Button
-                  variant="outlined"
-                  href="#outlined-buttons"
-                  onClick={() => setIsContactModalActive(true)}
-                >
-                  Cadastrar novo Contato
-                </Button>
-              </Stack>
-              {isContactsModalActive && <NewContactModal />}
-            </>
-          ) : (
-            <StyledListContacts>
-              {contacts?.map(
-                ({
-                  id,
-                  name,
-                  email,
-                  phoneNumber,
-                  clientWhoBelongs,
-                }: IContacts) => (
-                  <AllContacts
-                    key={id}
-                    id={id}
-                    name={name}
-                    email={email}
-                    phoneNumber={phoneNumber}
-                    clientWhoBelongsId={clientWhoBelongs.id}
-                  />
-                )
-              )}
-            </StyledListContacts>
-          )}
+          <StyledListContacts>
+            {contacts?.map(
+              ({
+                id,
+                name,
+                email,
+                phoneNumber,
+                clientWhoBelongs,
+              }: IContacts) => (
+                <AllContacts
+                  key={id}
+                  id={id}
+                  name={name}
+                  email={email}
+                  phoneNumber={phoneNumber}
+                  clientWhoBelongsId={clientWhoBelongs.id}
+                />
+              )
+            )}
+          </StyledListContacts>
+
           <Stack
             direction="row"
             spacing={2}
